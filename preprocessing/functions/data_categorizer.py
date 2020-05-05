@@ -6,6 +6,7 @@ class DataCategorizer:
     def categorize_data(cls, df):
         df = cls._categorize_injuries(df)
         df = cls._categorize_activities(df)
+        df = cls._categorize_species(df)
         return df
 
     @classmethod
@@ -43,4 +44,77 @@ class DataCategorizer:
         # df.loc[df["age_cat"].isna(), 'age'].unique()
         df.loc[df["age"].str.contains("10|minor", case=False, na=False), "age_cat"] = 8
         df.loc[df["age"].str.contains("teen", case=False, na=False), "age_cat"] = 18
+        return df
+
+    @classmethod
+    def _categorize_species(cls, df):
+        df["species_cat"] = "non_classified"
+        df.loc[df["species"].str.contains("bull|leucas", case=False, na=False), "species_cat"] = "bull shark"
+        df.loc[df["species"].str.contains("grey", case=False, na=False), "species_cat"] = "grey shark"
+        df.loc[df["species"].str.contains("white", case=False, na=False), "species_cat"] = "white shark"
+        df.loc[df["species"].str.contains("tiger", case=False, na=False), "species_cat"] = "tiger shark"
+        df.loc[df["species"].str.contains("lemon", case=False, na=False), "species_cat"] = "tiger shark"
+        df.loc[df["species"].str.contains("shovelnose", case=False, na=False), "species_cat"] = "shovelnose ray"
+        df.loc[df["species"].str.contains("black", case=False, na=False), "species_cat"] = "blacktip shark"
+        df.loc[df["species"].str.contains("whitetip|white tip", case=False, na=False), "species_cat"] = "whitetip shark"
+        df.loc[df["species"].str.contains("galapagos", case=False, na=False), "species_cat"] = "galapagos shark"
+        df.loc[df["species"].str.contains("broadnose", case=False, na=False), "species_cat"] = "broadnose shark"
+        df.loc[df["species"].str.contains("cookiecutter", case=False, na=False), "species_cat"] = "cookiecutter shark"
+        df.loc[df["species"].str.contains("nurse", case=False, na=False), "species_cat"] = "nurse shark"
+        df.loc[df["species"].str.contains("spinner", case=False, na=False), "species_cat"] = "spinner shark"
+        df.loc[df["species"].str.contains("reef", case=False, na=False), "species_cat"] = "reef shark"
+        df.loc[df["species"].str.contains("stingray", case=False, na=False), "species_cat"] = "sting ray"
+        df.loc[df["species"].str.contains("wobbegong", case=False, na=False), "species_cat"] = "wobbegong shark"
+        df.loc[df["species"].str.contains("blue", case=False, na=False), "species_cat"] = "blue shark"
+        df.loc[df["species"].str.contains("eel", case=False, na=False), "species_cat"] = "eel"
+        df.loc[df["species"].str.contains("hammerhead", case=False, na=False), "species_cat"] = "hammerhead shark"
+        df.loc[df["species"].str.contains("raggedtooth", case=False, na=False), "species_cat"] = "raggedtooth shark"
+        df.loc[df["species"].str.contains("bonita", case=False, na=False), "species_cat"] = "bonita shark"
+        df.loc[df["species"].str.contains("whaler", case=False, na=False), "species_cat"] = "whaler shark"
+        df.loc[df["species"].str.contains("leopard", case=False, na=False), "species_cat"] = "leopard shark"
+        df.loc[df["species"].str.contains("mako", case=False, na=False), "species_cat"] = "mako shark"
+        df.loc[df["species"].str.contains("toadfish", case=False, na=False), "species_cat"] = "toadfish"
+        df.loc[df["species"].str.contains("salmon", case=False, na=False), "species_cat"] = "salmon shark"
+        df.loc[df["species"].str.contains("angel", case=False, na=False), "species_cat"] = "angel shark"
+        df.loc[df["species"].str.contains("dogfish", case=False, na=False), "species_cat"] = "dogfish shark"
+        df.loc[df["species"].str.contains("debris", case=False, na=False), "species_cat"] = "debris"
+        df.loc[df["species"].str.contains("zambesi", case=False, na=False), "species_cat"] = "zambesi shark"
+        df.loc[df["species"].str.contains("sevengill|seven-gill|7-gill", case=False, na=False), "species_cat"] = "sevengill shark"
+        df.loc[df["species"].str.contains("sandbar", case=False, na=False), "species_cat"] = "sandbar shark"
+        df.loc[df["species"].str.contains("porbeagle", case=False, na=False), "species_cat"] = "porbeagle shark"
+        df.loc[df["species"].str.contains("bronze", case=False, na=False), "species_cat"] = "bronze whale shark"
+        df.loc[df["species"].str.contains("dusky", case=False, na=False), "species_cat"] = "dusky shark"
+        df.loc[df["species"].str.contains("basking", case=False, na=False), "species_cat"] = "basking shark"
+        df.loc[df["species"].str.contains("goblin", case=False, na=False), "species_cat"] = "goblin shark"
+        df.loc[df["species"].str.contains("sand", case=False, na=False), "species_cat"] = "sand shark"
+        df.loc[df["species"].str.contains("catshark", case=False, na=False), "species_cat"] = "catshark shark"
+        df.loc[df["species"].str.contains("silvertip", case=False, na=False), "species_cat"] = "silvertip shark"
+        df.loc[df["species"].str.contains("hound", case=False, na=False), "species_cat"] = "smooth hound shark"
+        df.loc[df["species"].str.contains("cow", case=False, na=False), "species_cat"] = "cow shark"
+        df.loc[df["species"].str.contains("jackson", case=False, na=False), "species_cat"] = "port jackson shark"
+        df.loc[df["species"].str.contains("spurdog", case=False, na=False), "species_cat"] = "spurdog"
+        df.loc[df["species"].str.contains("carcharhinid|ground", case=False, na=False), "species_cat"] = "ground shark"
+        df.loc[df["species"].str.contains("carpet", case=False, na=False), "species_cat"] = "carpet shark"
+        df.loc[df["species"].str.contains("thresher", case=False, na=False), "species_cat"] = "thresher shark"
+
+        df.loc[df["species"].str.contains("small|juvenile", case=False, na=False), "species_cat"] = "small shark"
+        df.loc[df["species"].str.contains("large", case=False, na=False), "species_cat"] = "large shark"
+
+        df.loc[df["species"].str.contains("unknown|unidentified", case=False, na=False), "species_cat"] = "unknown"
+        df.loc[df["species"].str.contains("doubtful|no shark|still|not|questionable|unconf|invalid|probable", case=False, na=False), "species_cat"] = "no or doubtful shark involvement"
+
+        df.loc[df["species"].str.contains("many|class|school|pack|number", case=False, na=False), "species_cat"] = "shark pack"
+
+        # species = pd.Series(data=df.loc[df["species_cat"] == "non_classified", "species"].unique())
+        #
+        # import re
+        #
+    # def _get_size(cls, df):
+    #     df["size_string"] = df["species"].astype(str).str.replace(" ", "")
+    #     df["size_in_meters"] = df["size_string"].str.findall(".[0-9].[0-9]+.?m").str[-1]
+    #     df["size_in_feet"] = df["size_string"].str.findall("\d+[.,]?\d+[\']").str[-1].replace("\'", "")
+    #     df["size_in_meters"] = pd.to_numeric(df["size_in_feet"].unique())
+    #
+    #     df["size_in_inches"] = df["size_string"].str.findall("\d+[.,]?\d+[\"]").str[-1].unique()
+
         return df

@@ -57,10 +57,16 @@ class DataFormatter:
         return df
 
     @classmethod
-    def _format_datetimes(cls, df):
-        df["date_prep"] = df["date"].str.lower().str.strip()
-        df["date_prep"] = df["date"].str.replace("reported|before", "")
+    def _format_date(cls, df):
+        df["date_prep"] = df["date"].str.lower()
+        df["date_prep"] = df["date_prep"].str.strip()
+        df["date_prep"] = df["date_prep"].str.replace("reported", "")
+        df["date_prep"] = df["date_prep"].str.replace("before", "")
+        df["date_prep"] = pd.to_datetime(df["date_prep"], errors="ignore")
+        return df
 
+    @classmethod
+    def _format_year(cls, df):
         df["year_prep"] = df["year"].replace(0.0, np.nan)
         df["year_from_casenumber"] = df["case_number"].str.findall('\d{4}').str[0]
         df["year_from_casenumber"] = pd.to_numeric(df["year_from_casenumber"])
@@ -71,7 +77,12 @@ class DataFormatter:
 
         df.loc[df["year_prep"].isna(), 'year_prep'] = df["year_from_date"]
         df.loc[df["year_prep"].isna(), 'year_prep'] = df["year_from_casenumber"]
+        return df
 
+    @classmethod
+    def _format_datetimes(cls, df):
+        df = cls._format_date(df)
+        df = cls._format_year(df)
         return df
 
     @classmethod
