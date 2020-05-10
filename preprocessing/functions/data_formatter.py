@@ -13,6 +13,8 @@ class DataFormatter:
         df = cls._format_rows(df)
         df = cls._format_datetimes(df)
         df = cls._format_age(df)
+        # df = cls._format_type(df)
+        df = cls._format_fatal(df)
         return df.reset_index(drop=True)
 
     @classmethod
@@ -22,6 +24,8 @@ class DataFormatter:
 
         unnamed_cols = df.columns[df.columns.str.contains('unnamed')].tolist()
         df.drop(unnamed_cols, axis="columns", inplace=True)
+
+        df.rename(columns={"fatal(y/n)": "fatal"}, inplace=True)
 
         # df = df.reindex(sorted(df.columns), axis="columns")
         return df
@@ -90,6 +94,17 @@ class DataFormatter:
         df["age_prep"] = df["age"].astype(str).str.findall('\d+').str[0]
         df["age_prep"] = pd.to_numeric(df["age_prep"], errors="ignore")
         # df.loc[df["age_prep"].str.len() == 0, "age_prep"]
+        return df
+
+    @classmethod
+    def _format_type(cls, df):
+        type_dict = dict(zip(["Unprovoked", "Provoked"], [0, 1]))
+        df["type_cat"] = df["type"].replace(type_dict)
+        return df
+
+    @classmethod
+    def _format_fatal(cls, df):
+        df["fatal_cat"] = df["fatal"].str.strip().str.lower().str.replace("m", "n").replace(["n", "y"], [0, 1])
         return df
 
     # @classmethod

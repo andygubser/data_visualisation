@@ -97,24 +97,12 @@ class DataCategorizer:
         df.loc[df["species"].str.contains("carpet", case=False, na=False), "species_cat"] = "carpet shark"
         df.loc[df["species"].str.contains("thresher", case=False, na=False), "species_cat"] = "thresher shark"
 
-        df.loc[df["species"].str.contains("small|juvenile", case=False, na=False), "species_cat"] = "small shark"
-        df.loc[df["species"].str.contains("large", case=False, na=False), "species_cat"] = "large shark"
-
         df.loc[df["species"].str.contains("unknown|unidentified", case=False, na=False), "species_cat"] = "unknown"
         df.loc[df["species"].str.contains("doubtful|no shark|still|not|questionable|unconf|invalid|probable", case=False, na=False), "species_cat"] = "no or doubtful shark involvement"
 
-        df.loc[df["species"].str.contains("many|class|school|pack|number", case=False, na=False), "species_cat"] = "shark pack"
-
-        # species = pd.Series(data=df.loc[df["species_cat"] == "non_classified", "species"].unique())
-        #
-        # import re
-        #
-    # def _get_size(cls, df):
-    #     df["size_string"] = df["species"].astype(str).str.replace(" ", "")
-    #     df["size_in_meters"] = df["size_string"].str.findall(".[0-9].[0-9]+.?m").str[-1]
-    #     df["size_in_feet"] = df["size_string"].str.findall("\d+[.,]?\d+[\']").str[-1].replace("\'", "")
-    #     df["size_in_meters"] = pd.to_numeric(df["size_in_feet"].unique())
-    #
-    #     df["size_in_inches"] = df["size_string"].str.findall("\d+[.,]?\d+[\"]").str[-1].unique()
+        # df.loc[df["species"].str.contains("small|juvenile", case=False, na=False), "species_cat"] = "small shark"
+        # df.loc[df["species"].str.contains("large", case=False, na=False), "species_cat"] = "large shark"
+        df.loc[df["species"].str.contains("many|class|school|pack|number", case=False, na=False),
+               "species_cat"] = "shark pack"
 
         return df
