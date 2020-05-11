@@ -16,9 +16,11 @@ class GeoPandasPlot:
         dict_colors_values = sns.hls_palette(len(dict_colors_keys), l=.3, s=.8)
         dict_colors = dict(zip(dict_colors_keys, dict_colors_values))
 
-        fig, ax = plt.subplots(figsize=(10, 20))
+        fig, ax = plt.subplots(figsize=(20, 10))
         gdf_world.boundary.plot(ax=ax, alpha=0.4, colors="grey")
-        gdf_sharks.plot(ax=ax, markersize=10, alpha=0.5,
+        gdf_sharks.plot(ax=ax, markersize=20, alpha=0.5,
                         color=gdf_sharks["species"].apply(lambda x: dict_colors[x]),
+                        legend=True,
+                        categorical=True
                         )
         plt.show(prop={"size": 15})

@@ -15,7 +15,5 @@ class DataPreprocessor:
         self.data_filtered = DataFilter.filter(self.data_categorized)
 
         # data preparation for visualisation with geopandas
-        # self.geo_data_with_lat_long = GetLatitudeLongitude.merge_with_lat_long(self.data_categorized)
-        # self.geo_data_filtered = DataFilter.filter(self.geo_data_with_lat_long)
-        # self.geo_data = GeoDataFormatter.run(self.geo_data_filtered)
-
+        self.geo_data_with_lat_long = GetLatitudeLongitude.merge_with_lat_long(self.data_categorized)
+        self.geo_data = GeoDataFormatter.run(self.geo_data_with_lat_long)
